@@ -1,5 +1,5 @@
 body{
-  background: #464646
+  background: #212121;
 }
 
 .App {
@@ -24,11 +24,6 @@ body{
 
 .App-intro {
   font-size: large;
-}
-
-h1{
-  font-size: 3rem;
-  color: pink;
 }
 
 @keyframes App-logo-spin {
