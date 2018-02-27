@@ -80,8 +80,7 @@ class Filter extends Component{
     return(
       <div style={defaultStyle}>
         <img/>
-        <input type="text" name="" id=""/>
-        Filter
+        <input type="text" name="" id="" onKeyUp={event => this.props.onTextChange(event.target.value)}/>
       </div>
     );
   }
@@ -109,12 +108,15 @@ class App extends Component {
 
   constructor(){
     super();
-    this.state = {serverData: {}};
+    this.state = {
+      serverData: {},
+      filterString: ''
+    }
   }
   componentDidMount(){
     setTimeout(() =>{
       this.setState({serverData: fakeServerData})
-    }, 3000)
+    }, 1000)
   }
 
   render() {
@@ -127,8 +129,11 @@ class App extends Component {
         </h1>
         <PlayListCounter playLists={this.state.serverData.user.playLists}/>
         <HoursCounter playLists={this.state.serverData.user.playLists}/>
-        <Filter />
-        {this.state.serverData.user.playLists.map(playList =>
+        <Filter onTextChange={text => this.setState({filterString: text})}/>
+        {this.state.serverData.user.playLists.filter(playList =>
+          playList.name.toLowerCase().includes(
+            this.state.filterString.toLowerCase())
+        ).map(playList =>
           <Playlist playList={playList}/>
         )}
         </div> : <h1>Loading...</h1>
